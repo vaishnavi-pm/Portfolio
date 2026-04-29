@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+/* ── Custom Fonts ───────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Righteous&display=swap');
+
+/* ── CSS Custom Properties ──────────────────────────────────────── */
+:root {
+  --bg-main: #0A0A0F;
+  --text-main: #F8FAFC;
+  --button-main: #3B82F6;
+  --hover-glow: #8B5CF6;
+  --accent-link: #06B6D4;
+  --surface-soft: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.12);
+  --border-soft: rgba(255, 255, 255, 0.12);
+  --shadow-glow: rgba(139, 92, 246, 0.2);
+}
+
+/* ── Base Styles ────────────────────────────────────────────────── */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    background: radial-gradient(circle at top, rgba(6, 182, 212, 0.16), transparent 28%),
+      linear-gradient(180deg, #0A0A0F 0%, #09090E 100%);
+    color: var(--text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  a {
+    color: var(--accent-link);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: var(--button-main);
+    outline: none;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.55);
+    border-radius: 9999px;
+    border: 2px solid rgba(10, 10, 15, 0.65);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.65);
+  }
+}
+
+/* ── Component Styles ───────────────────────────────────────────── */
+@layer components {
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--button-main) 0%, var(--hover-glow) 50%, var(--accent-link) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    background: var(--surface-soft);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+  }
+
+  .glass:hover {
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(139, 92, 246, 0.22);
+    box-shadow: 0 0 30px var(--shadow-glow);
+  }
+
+  /* Custom button styles */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--button-main) 0%, var(--hover-glow) 100%);
+    color: var(--text-main);
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(139, 92, 246, 0.25);
+  }
+
+  .btn-secondary {
+    background: rgba(59, 130, 246, 0.12);
+    color: var(--text-main);
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: background 0.25s ease, border-color 0.25s ease;
+    border: 1px solid rgba(59, 130, 246, 0.24);
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(59, 130, 246, 0.18);
+    border-color: rgba(139, 92, 246, 0.4);
+  }
+
+  /* Section spacing */
+  .section {
+    padding: 80px 0;
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      padding: 60px 0;
+    }
+  }
+}
+
+/* ── Utility Classes ────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+}
+
+/* ── Animations ─────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Responsive Design ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .gradient-text {
+    background: linear-gradient(135deg, var(--button-main) 0%, var(--hover-glow) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
