@@ -65,8 +65,8 @@ const Skills = () => {
                   {/* Buttons */}
                   <div className="flex items-center gap-4 mt-8">
 
-                    <a
-                      href="#service"
+                    <Link
+                      to="/project/service"
                       className="
                       px-6 py-3
                       rounded-2xl
@@ -79,7 +79,7 @@ const Skills = () => {
                       "
                     >
                       View Projects
-                    </a>
+                    </Link>
 
                     <a
                       href="https://github.com/vaishnavi-pm?tab=repositories"

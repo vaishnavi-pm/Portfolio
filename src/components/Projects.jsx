@@ -38,6 +38,14 @@ const Project = () => {
       path: "/project/blog",
       description: "Next.js + Prisma + PostgreSQL",
     },
+    {
+      id: 5,
+      title: "Service Page",
+      category: "frontend",
+      emoji: "⚙️",
+      path: "/project/service",
+      description: "Showcase page with GitHub projects, premium features, and core skills.",
+    },
   ];
 
   const filtered =

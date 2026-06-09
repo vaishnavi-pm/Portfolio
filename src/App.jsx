@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import Service from "./components/service";
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import NeuralNetworkBackground from './components/NeuralNetworkBackground';
@@ -14,20 +15,6 @@ import { Routes, Route } from "react-router-dom";
 const App = () => {
   const { isDark, colors } = useTheme();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleClick = (e) => {
-      const link = e.target.closest('a[href^="#"]');
-      if (!link) return;
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    };
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -87,7 +74,9 @@ const App = () => {
       <Route path="/" element={PortfolioLayout} />
       <Route path="/project/ecommerce" element={<h1 style={{ color: '#fff', background: '#000', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 0 }}>Ecommerce Page</h1>} />
       <Route path="/project/task"      element={<h1 style={{ color: '#fff', background: '#000', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 0 }}>Task App</h1>} />
-      <Route path="/project/service"   element={<h1 style={{ color: '#fff', background: '#000', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 0 }}>Service Page</h1>} />
+      <Route path="/service" element={<Service />} />
+      <Route path="/services/web" element={<Service />} />
+      <Route path="/project/service" element={<Service />} />
       <Route path="/project/weather"   element={<h1 style={{ color: '#fff', background: '#000', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 0 }}>Weather App</h1>} />
       <Route path="/project/blog"      element={<h1 style={{ color: '#fff', background: '#000', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 0 }}>Blog Platform</h1>} />
     </Routes>
