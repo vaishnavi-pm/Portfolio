@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/useTheme';
 import resumePdf from '../assets/Vaishnavi resume.pdf';
 
 /**
@@ -12,21 +13,21 @@ import resumePdf from '../assets/Vaishnavi resume.pdf';
 const RESUME_PATH = resumePdf;
 
 /* ─── MagicUI-style Shimmer Button ─────────────────────────────────────── */
-function ShimmerButton({ children, href, onClick, ...props }) {
+function ShimmerButton({ children, href, onClick, colors, ...props }) {
   const Tag = href ? motion.a : motion.button;
   return (
     <Tag
       href={href}
       onClick={onClick}
       className="shimmer-btn"
+      style={{
+        '--primary-color': colors.primary,
+        '--bg-color': '#111111',
+      }}
       whileHover={{ scale: 1.04, y: -1 }}
       whileTap={{ scale: 0.97 }}
       {...props}
     >
-      {/*
-        The conic-gradient spins a bright white highlight around the perimeter.
-        It sits behind a slightly inset black fill, so only the border edge glows.
-      */}
       <span className="shimmer-btn__border" />
       <span className="shimmer-btn__bg" />
       <span className="shimmer-btn__label">{children}</span>
@@ -35,7 +36,7 @@ function ShimmerButton({ children, href, onClick, ...props }) {
 }
 
 /* ─── Resume Link ───────────────────────────────────────────────────────── */
-function ResumeLink({ href, jost, onMouseEnter, onMouseLeave }) {
+function ResumeLink({ href, jost, onMouseEnter, onMouseLeave, colors }) {
   return (
     <motion.a
       href={href}
@@ -48,8 +49,8 @@ function ResumeLink({ href, jost, onMouseEnter, onMouseLeave }) {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.97 }}
     >
-      <span className="resume-link__text">Resume</span>
-      <span className="resume-link__underline" />
+      <span className="resume-link__text" style={{ '--primary-color': '#FFFFFF' }}>Resume</span>
+      <span className="resume-link__underline" style={{ '--primary-color': '#FFFFFF' }} />
     </motion.a>
   );
 }
@@ -58,6 +59,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen]         = useState(false);
   const [cursorPos, setCursorPos]   = useState({ x: -200, y: -200 });
   const [showCursor, setShowCursor] = useState(false);
+  const { colors } = useTheme();
 
   useEffect(() => {
     const onMove = (e) => setCursorPos({ x: e.clientX, y: e.clientY });
@@ -90,13 +92,10 @@ export default function Navbar() {
           text-decoration: none;
           background: transparent;
           /* extra glow shadow on the outer box */
-          box-shadow: 0 0 18px rgba(255,255,255,0.08), 0 2px 12px rgba(0,0,0,0.5);
+          box-shadow: 0 0 18px rgba(255,255,255,0.08), 0 2px 12px rgba(0,0,0,0.1);
           transition: box-shadow 0.3s ease;
           overflow: hidden;
-        }
-        .shimmer-btn:hover {
-          box-shadow: 0 0 28px rgba(255,255,255,0.16), 0 4px 20px rgba(0,0,0,0.55);
-        }
+          }
 
         /*
           Layer 1 — spinning conic gradient
@@ -135,7 +134,7 @@ export default function Navbar() {
           position: absolute;
           inset: 1.5px;
           border-radius: 8.5px;
-          background: #09090b;      /* zinc-950, near-black */
+          background: var(--bg-color);
           /* subtle inner shadow to give depth */
           box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
         }
@@ -171,7 +170,7 @@ export default function Navbar() {
           font-size: 12px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          background: linear-gradient(90deg, #9ca3af, #d1d5db, #9ca3af);
+          background: linear-gradient(90deg, var(--primary-color), var(--primary-color), var(--primary-color));
           background-size: 200% auto;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -188,7 +187,7 @@ export default function Navbar() {
           display: block;
           height: 1px;
           width: 0%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+          background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
           transition: width 0.4s ease;
           border-radius: 1px;
         }
@@ -208,13 +207,21 @@ export default function Navbar() {
       >
         <motion.div
           className="absolute inset-0 rounded-full"
-          style={{ border: '1px solid rgba(160,200,255,0.6)' }}
+          style={{ 
+            border: `1px solid ${colors.primary}40`,
+          }}
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 3, ease: 'linear' }}
         />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-blue-300/90" />
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-blue-300/90" />
-        <span className="text-[9px] tracking-widest uppercase text-blue-200/90 text-center leading-tight" style={jost}>
+        <div 
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full"
+          style={{ backgroundColor: '#FFFFFF' }}
+        />
+        <div 
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full"
+          style={{ backgroundColor: '#FFFFFF' }}
+        />
+        <span className="text-[9px] tracking-widest uppercase text-center leading-tight" style={{ ...jost, color: '#FFFFFF' }}>
           View<br />PDF
         </span>
       </motion.div>
@@ -227,19 +234,27 @@ export default function Navbar() {
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
       >
         <div
-          className="relative flex items-center w-full max-w-4xl rounded-[14px] overflow-hidden border transition-all duration-700 bg-black/95 backdrop-blur-sm border-gray-700"
-          style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}
+          className="relative flex items-center w-full max-w-4xl rounded-[14px] overflow-hidden border transition-all duration-700"
+          style={{ 
+            backgroundColor: 'transparent',
+            borderColor: 'transparent',
+            backdropFilter: 'none',
+            boxShadow: 'none',
+          }}
         >
           {/* Logo */}
-          <div className="flex items-center h-14 px-6 flex-shrink-0">
+          <div className="flex items-center h-5 px-20 flex-shrink-0">
             <motion.a
               href="#home"
-              className="text-[22px] font-light italic tracking-widest select-none text-gray-400"
-              style={cormorant}
+              className="text-[25px] font-light italic tracking-widest select-none"
+              style={{
+  fontFamily: "'Cinzel', serif",
+  color: '#FFFFFF'
+}}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
             >
-              Vaish
+              Vaishnavi
             </motion.a>
           </div>
 
@@ -252,12 +267,13 @@ export default function Navbar() {
               jost={jost}
               onMouseEnter={() => setShowCursor(true)}
               onMouseLeave={() => setShowCursor(false)}
+              colors={colors}
             />
           </div>
 
           {/* ── Let's Connect — MagicUI Shimmer Button ── */}
           <div className="hidden md:flex items-center h-14 px-4">
-            <ShimmerButton href="#contact">
+            <ShimmerButton href="#contact" colors={colors}>
               Let's Connect
             </ShimmerButton>
           </div>
@@ -266,7 +282,10 @@ export default function Navbar() {
           <div className="md:hidden flex items-center h-14 px-4">
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-gray-400 hover:text-gray-200 rounded-lg hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-lg transition-colors"
+              style={{
+                color: colors.textParagraph,
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle menu"
@@ -282,8 +301,13 @@ export default function Navbar() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className="md:hidden absolute top-[calc(100%+6px)] left-6 right-6 rounded-[12px] border border-gray-700 overflow-hidden bg-black/95 backdrop-blur-sm"
-              style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}
+              className="md:hidden absolute top-[calc(100%+6px)] left-6 right-6 rounded-[12px] overflow-hidden"
+              style={{ 
+                backgroundColor: 'rgba(10,10,20,0.45)',
+                borderColor: 'rgba(168,85,247,0.2)',
+                backdropFilter: 'blur(20px)',
+                boxShadow: '0 0 30px rgba(168,85,247,0.15)'
+              }}
               initial={{ opacity: 0, y: -10, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
@@ -301,18 +325,20 @@ export default function Navbar() {
                   onClick={() => setIsOpen(false)}
                   className={`
                     flex items-center px-6 py-4 text-[12px] tracking-[0.18em] uppercase transition-all duration-200
-                    ${i > 0 ? 'border-t border-gray-700' : ''}
-                    ${item.cta
-                      ? 'text-gray-200 hover:text-white'
-                      : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'}
+                    ${i > 0 ? 'border-t' : ''}
                   `}
-                  style={{ ...jost, fontWeight: 300 }}
+                  style={{ 
+                    ...jost, 
+                    fontWeight: 300,
+                    borderTopColor: i > 0 ? colors.border : 'transparent',
+                    color: item.cta ? colors.primary : colors.textParagraph,
+                  }}
                   initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.07 }}
                 >
                   {item.label}
-                  {item.cta && <span className="ml-auto text-[10px] opacity-50">→</span>}
+                  {item.cta && <span className="ml-auto text-[10px]" style={{ opacity: 0.5 }}>→</span>}
                 </motion.a>
               ))}
             </motion.div>

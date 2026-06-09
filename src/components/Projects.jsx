@@ -1,311 +1,311 @@
-import { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { ExternalLink, GitBranch, Star, ArrowUpRight } from 'lucide-react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-// ── Project Data ─────────────────────────────────────────────────
-const PROJECTS = [
-  {
-    id: 1,
-    title: 'E-Commerce Website',
-    description:
-      'A responsive online store built with React and Node.js. Features product catalog, shopping cart, and payment integration.',
-    emoji: '🛒',
-    glowColor: 'rgba(34,211,238,0.08)',
-    tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-    category: 'full-stack',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
-    featured: true,
-  },
-  {
-    id: 2,
-    title: 'Task Management App',
-    description:
-      'A productivity app for managing daily tasks with drag-and-drop functionality and local storage.',
-    emoji: '📋',
-    glowColor: 'rgba(168,85,247,0.08)',
-    tags: ['React', 'JavaScript', 'Local Storage'],
-    category: 'frontend',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
-    featured: true,
-  },
-  {
-    id: 3,
-    title: 'Weather App',
-    description:
-      'A weather application that displays current conditions and forecasts using a public API.',
-    emoji: '🌤️',
-    glowColor: 'rgba(96,165,250,0.08)',
-    tags: ['React', 'API Integration', 'CSS'],
-    category: 'frontend',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
-    featured: false,
-  },
-  {
-    id: 4,
-    title: 'Blog Platform',
-    description:
-      'A content management system for creating and publishing blog posts with a clean, modern interface.',
-    emoji: '📝',
-    glowColor: 'rgba(34,197,94,0.08)',
-    tags: ['React', 'Node.js', 'Express', 'MongoDB'],
-    category: 'full-stack',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
-    featured: false,
-  },
-  {
-    id: 5,
-    title: 'Portfolio Website',
-    description:
-      'This responsive portfolio website showcasing my projects and skills, built with modern web technologies.',
-    emoji: '💼',
-    glowColor: 'rgba(244,114,182,0.08)',
-    tags: ['React', 'Tailwind CSS', 'Framer Motion'],
-    category: 'frontend',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
-    featured: false,
-  },
-  {
-    id: 6,
-    title: 'API Development',
-    description:
-      'RESTful API for a social media application with user authentication and data management.',
-    emoji: '🔗',
-    glowColor: 'rgba(251,146,60,0.08)',
-    tags: ['Node.js', 'Express', 'JWT', 'PostgreSQL'],
-    category: 'backend',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
-    featured: false,
-  },
-];
+const Project = () => {
+  const [filter, setFilter] = useState("all");
+  const navigate = useNavigate();
 
-const FILTERS = [
-  { label: 'All',        value: 'all' },
-  { label: 'Full Stack', value: 'full-stack' },
-  { label: 'Frontend',   value: 'frontend' },
-  { label: 'Backend',    value: 'backend' },
-];
+  const projects = [
+    {
+      id: 1,
+      title: "E-Commerce Website",
+      category: "full-stack",
+      emoji: "🛒",
+      path: "/project/ecommerce",
+      description: "React + Node.js + MongoDB",
+    },
+    {
+      id: 2,
+      title: "Task App",
+      category: "frontend",
+      emoji: "📋",
+      path: "/project/task",
+      description: "React + Local Storage",
+    },
+    {
+      id: 3,
+      title: "Weather App",
+      category: "frontend",
+      emoji: "🌤️",
+      path: "/project/weather",
+      description: "React + OpenWeather API",
+    },
+    {
+      id: 4,
+      title: "Blog Platform",
+      category: "full-stack",
+      emoji: "📝",
+      path: "/project/blog",
+      description: "Next.js + Prisma + PostgreSQL",
+    },
+  ];
 
-// ── Filter Tabs ───────────────────────────────────────────────────
-function FilterTabs({ active, onChange }) {
+  const filtered =
+    filter === "all"
+      ? projects
+      : projects.filter((p) => p.category === filter);
+
   return (
-    <div className="proj-filter">
-      {FILTERS.map((f) => (
-        <button
-          key={f.value}
-          className={`filt-btn${active === f.value ? ' active' : ''}`}
-          onClick={() => onChange(f.value)}
-        >
-          {f.label}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-// ── Single Project Card ───────────────────────────────────────────
-function ProjectCard({ project, index }) {
-  return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 28, scale: 0.97 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 16, scale: 0.96 }}
-      transition={{ duration: 0.45, delay: index * 0.07, ease: [0.25, 0.46, 0.45, 0.94] }}
-      whileHover={{ y: -6 }}
-      className="proj-card"
-    >
-      {/* Thumbnail */}
-      <div className="proj-thumb">
-        <span style={{ fontSize: '3rem', zIndex: 1, position: 'relative' }}>
-          {project.emoji}
-        </span>
-
-        {/* Colour glow on hover */}
-        <div
-          className="proj-glow"
-          style={{
-            background: `radial-gradient(circle at 50% 50%, ${project.glowColor}, transparent 70%)`,
-          }}
-        />
-
-        {/* Overlay with links */}
-        <div className="proj-overlay">
-          <motion.a
-            href={project.demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="proj-overlay-btn"
-            whileHover={{ scale: 1.12 }}
-            whileTap={{ scale: 0.92 }}
-            title="Live Demo"
-          >
-            <ArrowUpRight size={16} />
-          </motion.a>
-          <motion.a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="proj-overlay-btn"
-            whileHover={{ scale: 1.12 }}
-            whileTap={{ scale: 0.92 }}
-            title="GitHub"
-          >
-            <GitBranch size={16} />
-          </motion.a>
-        </div>
-      </div>
-
-      {/* Body */}
-      <div className="proj-body">
-        {/* Featured badge */}
-        {project.featured && (
-          <div className="proj-featured-badge">
-            <Star size={9} fill="currentColor" />
-            Featured
-          </div>
-        )}
-
-        {/* Tech tags */}
-        <div className="proj-tags">
-          {project.tags.map((t) => (
-            <span key={t} className="proj-tag">{t}</span>
-          ))}
-        </div>
-
-        <h3 className="proj-title">{project.title}</h3>
-        <p className="proj-desc">{project.description}</p>
-
-        {/* Links */}
-        <div className="proj-links">
-          <a
-            href={project.demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="pl prim"
-          >
-            <ExternalLink size={13} />
-            Demo
-          </a>
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="pl"
-          >
-            <GitBranch size={13} />
-            Code
-          </a>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ── Section Header ────────────────────────────────────────────────
-function SectionHeader({ headerRef, isInView }) {
-  return (
-    <motion.div
-      ref={headerRef}
-      initial={{ opacity: 0, y: 24 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      style={{ marginBottom: '1rem' }}
-    >
-      <div className="sec-eye">
-        <span className="sec-eye-line" />
-        Portfolio
-        <span className="sec-eye-line" />
-      </div>
-      <h2 className="sec-h">
-        Selected <span className="hl">Projects</span>
-      </h2>
-      <p className="sec-p">
-        A curated collection of things I've built — from full-stack apps to interactive UIs.
+    <div className="section">
+      <p className="label">PORTFOLIO</p>
+      <h2>My Projects</h2>
+      <p className="subtitle">
+        A collection of things I've built — from full-stack apps to polished UIs.
       </p>
-    </motion.div>
-  );
-}
 
-// ── View More ─────────────────────────────────────────────────────
-function ViewMore() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.3 }}
-      style={{ textAlign: 'center', marginTop: '2.5rem' }}
-    >
-      <motion.a
-        href="https://github.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        whileHover={{ scale: 1.05, y: -3 }}
-        whileTap={{ scale: 0.96 }}
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          padding: '0.72rem 1.8rem',
-          borderRadius: '99px',
-          border: '1px solid rgba(255,255,255,0.12)',
-          background: 'transparent',
-          color: '#94a3b8',
-          textDecoration: 'none',
-          fontSize: '0.84rem',
-          fontFamily: 'var(--font-b)',
-          cursor: 'none',
-          transition: 'border-color 0.2s, color 0.2s',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = 'rgba(96,165,250,0.5)';
-          e.currentTarget.style.color = '#60a5fa';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
-          e.currentTarget.style.color = '#94a3b8';
-        }}
-      >
-        <GitBranch size={16} />
-        View all on GitHub
-      </motion.a>
-    </motion.div>
-  );
-}
+      {/* Filter Buttons */}
+      <div className="filters">
+        {["all", "full-stack", "frontend"].map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            className={filter === f ? "active" : ""}
+          >
+            {f === "all" ? "All" : f === "full-stack" ? "Full Stack" : "Frontend"}
+          </button>
+        ))}
+      </div>
 
-// ── Main Export ───────────────────────────────────────────────────
-const Projects = () => {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const headerRef = useRef(null);
-  const isInView = useInView(headerRef, { once: true, margin: '-80px' });
+      {/* Project Grid */}
+      <div className="grid">
+        {filtered.map((p, i) => (
+          <div
+            key={p.id}
+            className="card"
+            style={{
+              transform: `rotate(${i % 2 === 0 ? "-4deg" : "4deg"})`,
+              animationDelay: `${i * 0.1}s`,
+            }}
+            onClick={() => navigate(p.path)}
+          >
+            <div className="cardInner">
+              <span className="emoji">{p.emoji}</span>
+              <span className="category-tag">{p.category}</span>
 
-  const filtered = activeFilter === 'all'
-    ? PROJECTS
-    : PROJECTS.filter((p) => p.category === activeFilter);
+              <div className="overlay">
+                <h3>{p.title}</h3>
+                <p className="desc">{p.description}</p>
+                <span className="cta">View Project →</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
 
-  return (
-    <section id="projects" className="sec">
-      <SectionHeader headerRef={headerRef} isInView={isInView} />
+      {filtered.length === 0 && (
+        <p className="empty">No projects found for this filter.</p>
+      )}
 
-      <FilterTabs active={activeFilter} onChange={setActiveFilter} />
+      {/* Styles */}
+      <style>{`
+        .section {
+          background: #0a0a0a;
+          color: white;
+          padding: 80px 20px;
+          text-align: center;
+          min-height: 100vh;
+        }
 
-      <motion.div layout className="proj-grid">
-        <AnimatePresence mode="popLayout">
-          {filtered.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
-          ))}
-        </AnimatePresence>
-      </motion.div>
+        .label {
+          font-size: 11px;
+          letter-spacing: 4px;
+          color: #555;
+          margin-bottom: 12px;
+          text-transform: uppercase;
+        }
 
-      <ViewMore />
-    </section>
+        h2 {
+          font-size: clamp(32px, 6vw, 52px);
+          font-weight: 700;
+          margin: 0 0 16px;
+          background: linear-gradient(135deg, #fff 0%, #888 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .subtitle {
+          color: #666;
+          font-size: 15px;
+          margin-bottom: 40px;
+          max-width: 420px;
+          margin-left: auto;
+          margin-right: auto;
+          line-height: 1.6;
+        }
+
+        /* Filter */
+        .filters {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-bottom: 50px;
+          flex-wrap: wrap;
+        }
+
+        .filters button {
+          padding: 8px 20px;
+          background: transparent;
+          border: 1px solid #2a2a2a;
+          color: #666;
+          cursor: pointer;
+          border-radius: 100px;
+          font-size: 13px;
+          letter-spacing: 0.5px;
+          transition: all 0.2s ease;
+        }
+
+        .filters button:hover {
+          border-color: #555;
+          color: #ccc;
+        }
+
+        .filters button.active {
+          background: white;
+          color: black;
+          border-color: white;
+          font-weight: 600;
+        }
+
+        /* Grid */
+        .grid {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 48px;
+          padding: 20px 0;
+        }
+
+        /* Card */
+        .card {
+          width: 220px;
+          height: 280px;
+          cursor: pointer;
+          transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+          position: relative;
+        }
+
+        .card:hover {
+          transform: scale(1.08) rotate(0deg) !important;
+          z-index: 10;
+        }
+
+        .cardInner {
+          height: 100%;
+          background: #111;
+          border: 1px solid #1e1e1e;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          overflow: hidden;
+          border-radius: 18px;
+          transition: border-color 0.3s ease;
+        }
+
+        .card:hover .cardInner {
+          border-color: #333;
+        }
+
+        .emoji {
+          font-size: 64px;
+          transition: transform 0.3s ease;
+          display: block;
+        }
+
+        .card:hover .emoji {
+          transform: scale(1.15);
+        }
+
+        /* Category tag (visible by default, hides on hover) */
+        .category-tag {
+          position: absolute;
+          top: 14px;
+          right: 14px;
+          font-size: 10px;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: #444;
+          background: #1a1a1a;
+          padding: 3px 8px;
+          border-radius: 100px;
+          border: 1px solid #2a2a2a;
+          transition: opacity 0.3s ease;
+        }
+
+        .card:hover .category-tag {
+          opacity: 0;
+        }
+
+        /* Overlay */
+        .overlay {
+          position: absolute;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.88);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 24px;
+          opacity: 0;
+          transition: opacity 0.35s ease;
+          border-radius: 18px;
+          gap: 8px;
+        }
+
+        .card:hover .overlay {
+          opacity: 1;
+        }
+
+        .overlay h3 {
+          font-size: 16px;
+          font-weight: 600;
+          margin: 0;
+          color: #fff;
+          text-align: center;
+          line-height: 1.3;
+        }
+
+        .overlay .desc {
+          font-size: 12px;
+          color: #666;
+          margin: 0;
+          text-align: center;
+          line-height: 1.5;
+        }
+
+        .overlay .cta {
+          margin-top: 8px;
+          font-size: 13px;
+          color: #aaa;
+          letter-spacing: 0.5px;
+          transition: color 0.2s ease;
+        }
+
+        .card:hover .cta {
+          color: #fff;
+        }
+
+        /* Empty state */
+        .empty {
+          color: #444;
+          font-size: 14px;
+          margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+          .grid {
+            gap: 30px;
+          }
+          .card {
+            width: 160px;
+            height: 210px;
+          }
+        }
+      `}</style>
+    </div>
   );
 };
 
-export default Projects;
+export default Project;

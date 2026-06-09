@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CustomCursor = () => {
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [smoothMouse, setSmoothMouse] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -37,7 +36,6 @@ const CustomCursor = () => {
 
     const onMove = (e) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
-      setMouse({ x: e.clientX, y: e.clientY });
       setIsVisible(true);
     };
 

@@ -1,0 +1,332 @@
+/* ════════════════════════════════════════════════════════════════════════════
+   THEME SYSTEM - Global Styles
+   ════════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --transition-duration: 300ms;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --glassmorphism-blur: 16px;
+}
+
+/* Light Mode */
+[data-theme="light"] {
+  --bg-primary: #F8FAFC;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #F1F5F9;
+  
+  --text-heading: #0F172A;
+  --text-paragraph: #475569;
+  --text-muted: #64748B;
+  
+  --color-primary: #2563EB;
+  --color-secondary: #6366F1;
+  --color-success: #16A34A;
+  --color-warning: #EAB308;
+  --color-error: #DC2626;
+  
+  --border-color: #E2E8F0;
+  --border-light: rgba(226, 232, 240, 0.5);
+  
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  
+  --hover-overlay: rgba(37, 99, 235, 0.05);
+  --glow-color: rgba(37, 99, 235, 0.2);
+  
+  color-scheme: light;
+}
+
+/* Dark Mode */
+[data-theme="dark"],
+.dark {
+  --bg-primary: #0F172A;
+  --bg-secondary: #1E293B;
+  --bg-tertiary: #334155;
+  
+  --text-heading: #F8FAFC;
+  --text-paragraph: #CBD5E1;
+  --text-muted: #94A3B8;
+  
+  --color-primary: #60A5FA;
+  --color-secondary: #818CF8;
+  --color-success: #4ADE80;
+  --color-warning: #FACC15;
+  --color-error: #F87171;
+  
+  --border-color: #334155;
+  --border-light: rgba(51, 65, 85, 0.5);
+  
+  --glass-bg: rgba(30, 41, 59, 0.7);
+  --glass-border: rgba(51, 65, 85, 0.2);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  
+  --hover-overlay: rgba(129, 140, 248, 0.1);
+  --glow-color: rgba(129, 140, 248, 0.2);
+  
+  color-scheme: dark;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   GLOBAL ELEMENTS
+   ════════════════════════════════════════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-paragraph);
+  transition: background-color var(--transition-duration) var(--transition-timing),
+              color var(--transition-duration) var(--transition-timing);
+}
+
+/* Smooth transitions for all theme-aware elements */
+* {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing);
+}
+
+/* Prevent animation on page load */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   THEME TOGGLE BUTTON - Premium Glassmorphism
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.theme-toggle-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glassmorphism-blur));
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+  box-shadow: var(--glass-shadow);
+  
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.theme-toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 48px var(--glow-color);
+  border-color: var(--color-primary);
+}
+
+.theme-toggle-btn:active {
+  transform: translateY(0);
+}
+
+.theme-toggle-btn svg {
+  stroke-width: 2;
+  transition: transform var(--transition-duration) var(--transition-timing);
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   GLASSMORPHISM UTILITIES
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.glassmorphism {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glassmorphism-blur));
+  -webkit-backdrop-filter: blur(var(--glassmorphism-blur));
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.glassmorphism:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 12px 48px var(--glow-color);
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   CARDS & SURFACES
+   ════════════════════════════════════════════════════════════════════════════ */
+
+[class*="card"],
+[class*="component"] {
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+[class*="card"]:hover {
+  transform: translateY(-4px);
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   BUTTONS
+   ════════════════════════════════════════════════════════════════════════════ */
+
+button {
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   LINKS & INTERACTIVE ELEMENTS
+   ════════════════════════════════════════════════════════════════════════════ */
+
+a {
+  color: var(--color-primary);
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   SCROLLBAR - Theme Aware
+   ════════════════════════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
+}
+
+/* Firefox */
+* {
+  scrollbar-color: var(--color-primary) var(--bg-primary);
+  scrollbar-width: thin;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   SELECTION & FOCUS STATES
+   ════════════════════════════════════════════════════════════════════════════ */
+
+::selection {
+  background-color: var(--color-primary);
+  color: var(--bg-primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   ANIMATIONS
+   ════════════════════════════════════════════════════════════════════════════ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--glow-color);
+  }
+  50% {
+    box-shadow: 0 0 30px var(--color-primary);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .theme-toggle-btn {
+    width: 44px;
+    height: 44px;
+    top: 16px;
+    right: 16px;
+  }
+
+  .theme-toggle-btn svg {
+    font-size: 18px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   ACCESSIBILITY
+   ════════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: more) {
+  .glassmorphism {
+    border-width: 2px;
+  }
+
+  .theme-toggle-btn {
+    border-width: 2px;
+  }
+}
