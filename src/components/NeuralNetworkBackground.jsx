@@ -191,7 +191,8 @@ export default function NeuralNetworkBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="neural-network-background fixed inset-0 z--1 pointer-events-none"
+      className="neural-network-background fixed inset-0 -z-10 pointer-events-none"
+      style={{ backgroundColor: '#000' }}
       aria-hidden="true"
     />
   );

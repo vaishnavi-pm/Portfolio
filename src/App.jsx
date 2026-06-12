@@ -31,7 +31,7 @@ const App = () => {
     <div 
       className="min-h-screen relative overflow-hidden"
       style={{
-        backgroundColor: colors.background,
+        backgroundColor: 'transparent',
         color: colors.textParagraph,
         transition: 'background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1)',
       }}

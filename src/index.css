@@ -30,12 +30,15 @@
 
   body {
     font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    background: radial-gradient(circle at top, rgba(6, 182, 212, 0.16), transparent 28%),
-      linear-gradient(180deg, #0A0A0F 0%, #09090E 100%);
+    background: #000;
     color: var(--text-main);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  .neural-network-background {
+    z-index: -10;
   }
   .classic-font{
   font-family: 'Cormorant Garamond', serif;
