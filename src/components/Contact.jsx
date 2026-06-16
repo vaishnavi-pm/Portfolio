@@ -135,7 +135,7 @@ const Contact = () => {
               className="flex items-center gap-2 bg-[#c8f65d]/10 border border-[#c8f65d]/30 rounded-full px-4 py-1.5"
             >
               <Sparkles size={13} className="text-[#c8f65d]" />
-              <span className="text-[#c0000] text-xs font-semibold tracking-widest uppercase">
+              <span className="text-white text-xs font-semibold tracking-widest uppercase">
                 Let's work together
               </span>
             </motion.div>
@@ -345,7 +345,7 @@ const Contact = () => {
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
                       className={`
-                        relative flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold text-sm
+                        relative flex items-center gap-2 px-5 py-2 rounded-xl font-medium text-xs
                         overflow-hidden transition-all duration-300 shrink-0
                         ${isSubmitting
                           ? 'bg-[#c8f65d]/60 text-black/60 cursor-not-allowed'

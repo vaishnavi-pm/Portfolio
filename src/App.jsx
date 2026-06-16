@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
-import Projects from './components/Projects';
+import Experience from './components/Experience';
 import Service from "./components/service";
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -55,7 +55,7 @@ const App = () => {
           <Skills />
         </section>
         <section id="projects" className="py-20">
-          <Projects />
+          <Experience />
         </section>
         <section id="contact" className="py-20" style={{
           backgroundColor: isDark ? 'rgba(30, 41, 59, 0.3)' : 'rgba(37, 99, 235, 0.02)',

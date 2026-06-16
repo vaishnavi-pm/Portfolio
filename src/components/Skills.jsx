@@ -4,6 +4,21 @@ import TiltedCard from "./TiltedCard";
 import GradientText from "./GradientText";
 import VaishPhoto from "../assets/wall1.jpg";
 
+function ShimmerButton({ to, children, ...props }) {
+  return (
+    <Link
+      to={to}
+      className="shimmer-btn"
+      style={{ '--bg-color': '#111111', '--primary-color': '#FFFFFF' }}
+      {...props}
+    >
+      <span className="shimmer-btn__border" />
+      <span className="shimmer-btn__bg" />
+      <span className="shimmer-btn__label">{children}</span>
+    </Link>
+  );
+}
+
 const Skills = () => {
   return (
     <section id="skills" className="py-24 px-6 md:px-12">
@@ -65,21 +80,9 @@ const Skills = () => {
                   {/* Buttons */}
                   <div className="flex items-center gap-4 mt-8">
 
-                    <Link
-                      to="/project/service"
-                      className="
-                      px-6 py-3
-                      rounded-2xl
-                      border border-cyan-400/30
-                      bg-white/2
-                      text-white
-                      transition-all duration-300
-                      hover:border-cyan-400
-                      hover:shadow-[0_0_25px_rgba(34,211,238,0.35)]
-                      "
-                    >
+                    <ShimmerButton to="/project/service">
                       View Projects
-                    </Link>
+                    </ShimmerButton>
 
                     <a
                       href="https://github.com/vaishnavi-pm?tab=repositories"
@@ -95,7 +98,7 @@ const Skills = () => {
                       hover:bg-white/5
                       "
                     >
-                      <FaGithub size={20} />
+                      <FaGithub size={20} color="#FFFFFF" />
                     </a>
 
                   </div>

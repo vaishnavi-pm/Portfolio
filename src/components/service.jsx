@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
 import { FaGithub, FaLinkedin, FaJava } from 'react-icons/fa';
+import { TbBrandVscode } from 'react-icons/tb';
+import { DiPhotoshop, DiIllustrator } from 'react-icons/di';
+import ScrollStack, { ScrollStackItem } from './ScrollStack';
 import {
   SiHtml5,
   SiCss,
@@ -19,6 +22,17 @@ import {
   SiPostgresql,
   SiGit,
   SiGithub,
+  SiSqlite,
+  SiOpencv,
+  SiGooglegemini,
+  SiGooglecolab,
+  SiVercel,
+  SiNetlify,
+  SiCanva,
+  SiFigma,
+  SiOpenai,
+  SiPython,
+  SiLeetcode,
 } from 'react-icons/si';
 import wallImage from '../assets/wall2.jpg';
 
@@ -65,22 +79,76 @@ const Service = () => {
     
   ];
 
-  const coreSkills = [
-    { name: 'React', icon: <SiReact size={36} className="text-cyan-400" /> },
-    { name: 'Tailwind CSS', icon: <SiTailwindcss size={36} className="text-sky-400" /> },
-    { name: 'Vue.js', icon: <SiVuedotjs size={36} className="text-emerald-500" /> },
-    { name: 'MySQL', icon: <SiMysql size={36} className="text-blue-500" /> },
-    { name: 'HTML', icon: <SiHtml5 size={36} className="text-orange-500" /> },
-    { name: 'CSS', icon: <SiCss size={36} className="text-sky-500" /> },
-    { name: 'Framer Motion', icon: <SiFramer size={36} className="text-violet-500" /> },
-    { name: 'JavaScript', icon: <SiJavascript size={36} className="text-yellow-500" /> },
-    { name: 'PHP', icon: <SiPhp size={36} className="text-blue-600" /> },
-    { name: 'Bootstrap', icon: <SiBootstrap size={36} className="text-sky-500" /> },
-    { name: 'PostgreSQL', icon: <SiPostgresql size={36} className="text-blue-600" /> },
-    { name: 'Git', icon: <SiGit size={36} className="text-orange-500" /> },
-    { name: 'GitHub', icon: <SiGithub size={36} className="text-slate-100" /> },
-    { name: 'Java', icon: <FaJava size={36} className="text-red-500" /> },
-    { name: 'SCSS', icon: <SiSass size={36} className="text-pink-500" /> },
+  const skillCategories = [
+    {
+      title: 'Database',
+      skills: [
+        { name: 'MySQL', icon: <SiMysql size={36} className="text-blue-500" /> },
+        { name: 'PostgreSQL', icon: <SiPostgresql size={36} className="text-blue-600" /> },
+        { name: 'MongoDB', icon: <SiMongodb size={36} className="text-emerald-500" /> },
+        { name: 'SQLite', icon: <SiSqlite size={36} className="text-slate-800" /> },
+      ],
+    },
+    {
+      title: 'Design Tools',
+      skills: [
+        { name: 'Photoshop', icon: <DiPhotoshop size={36} className="text-sky-600" /> },
+        { name: 'Illustrator', icon: <DiIllustrator size={36} className="text-orange-500" /> },
+        { name: 'Figma', icon: <SiFigma size={36} className="text-fuchsia-500" /> },
+        { name: 'Canva', icon: <SiCanva size={36} className="text-cyan-500" /> },
+      ],
+    },
+    {
+      title: 'Cloud & DevOps',
+      skills: [
+        { name: 'Vercel', icon: <SiVercel size={36} className="text-slate-900" /> },
+        { name: 'Netlify', icon: <SiNetlify size={36} className="text-cyan-400" /> },
+        { name: 'GitHub', icon: <SiGithub size={36} className="text-slate-950" /> },
+        { name: 'VS Code', icon: <TbBrandVscode size={36} className="text-sky-500" /> },
+      ],
+    },
+    {
+      title: 'AI & ML',
+      skills: [
+        { name: 'OpenCV', icon: <SiOpencv size={36} className="text-sky-500" /> },
+        { name: 'Gemini API', icon: <SiGooglegemini size={36} className="text-indigo-500" /> },
+        { name: 'Google Colab', icon: <SiGooglecolab size={36} className="text-sky-500" /> },
+        { name: 'OpenAI', icon: <SiOpenai size={36} className="text-fuchsia-500" /> },
+      ],
+    },
+    {
+      title: 'Programming Languages',
+      skills: [
+        { name: 'Java', icon: <FaJava size={36} className="text-red-500" /> },
+        { name: 'JavaScript', icon: <SiJavascript size={36} className="text-yellow-500" /> },
+        { name: 'Python', icon: <SiPython size={36} className="text-sky-500" /> },
+        { name: 'PHP', icon: <SiPhp size={36} className="text-blue-600" /> },
+      ],
+    },
+    {
+      title: 'Frameworks',
+      skills: [
+        { name: 'React', icon: <SiReact size={36} className="text-cyan-400" /> },
+        { name: 'Next.js', icon: <SiNextdotjs size={36} className="text-slate-100" /> },
+        { name: 'Tailwind CSS', icon: <SiTailwindcss size={36} className="text-sky-400" /> },
+        { name: 'Vue.js', icon: <SiVuedotjs size={36} className="text-emerald-500" /> },
+      ],
+    },
+    {
+      title: 'Development Tools',
+      skills: [
+        { name: 'Git', icon: <SiGit size={36} className="text-orange-500" /> },
+        { name: 'Node.js', icon: <SiNodedotjs size={36} className="text-[#8cc84b]" /> },
+        { name: 'Express', icon: <SiExpress size={36} className="text-slate-900" /> },
+        { name: 'Bootstrap', icon: <SiBootstrap size={36} className="text-sky-500" /> },
+      ],
+    },
+    {
+      title: 'CS Concepts',
+      skills: [
+        { name: 'DSA', icon: <SiLeetcode size={36} className="text-orange-500" /> },
+      ],
+    },
   ];
 
 
@@ -98,24 +166,24 @@ const Service = () => {
               </div>
               <div className="flex flex-wrap items-center gap-4">
                 
-                <div className="inline-flex items-center gap-3">
+                <div className="inline-flex items-center gap-6">
                   <a
                     href="https://github.com/vaishnavi-pm/Portfolio"
                     target="_blank"
                     rel="noreferrer"
                     aria-label="View GitHub project"
-                    className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-950 text-white shadow-lg shadow-slate-950/20 transition hover:bg-slate-800"
+                    className="inline-flex items-center justify-center transition hover:text-black"
                   >
-                    <FaGithub size={20} />
+                    <FaGithub size={28} color="#000000" />
                   </a>
                   <a
                     href="https://linkedin.com/in/yourlinkedinid"
                     target="_blank"
                     rel="noreferrer"
                     aria-label="View LinkedIn profile"
-                    className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-950 text-white shadow-lg shadow-slate-950/20 transition hover:bg-slate-800"
+                    className="inline-flex items-center justify-center transition hover:text-black"
                   >
-                    <FaLinkedin size={20} />
+                    <FaLinkedin size={28} color="#000000" />
                   </a>
                 </div>
               </div>
@@ -170,26 +238,56 @@ const Service = () => {
         </div>
       </section>
 
-      <section id="sectionSkills" className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-12 text-center">
-            <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Core Skills</p>
-            <h2 className="mt-3 text-4xl font-bold text-slate-950">My Core Skills</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-slate-600">
-              I specialize in building web projects with the strongest foundational tools and modern frontend workflows.
-            </p>
+      <section id="sectionSkills" className="py-20 bg-white">
+        <ScrollStack
+          className="bg-white"
+          itemDistance={60}
+          itemScale={0.05}
+          itemStackDistance={20}
+          stackPosition="30%"
+          scaleEndPosition="10%"
+          baseScale={0.8}
+          rotationAmount={0}
+          blurAmount={0}
+          useWindowScroll={false}
+        >
+          <div className="max-w-7xl mx-auto px-6 pt-12">
+            <div className="mb-12 text-center">
+              <h2 className="mt-3 text-4xl font-bold text-slate-950">My Core Skills</h2>
+              <p className="mx-auto mt-3 max-w-2xl text-slate-600">
+                A polished skill system built to show your strongest tools across design, development, AI, cloud, and database workflows.
+              </p>
+            </div>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {coreSkills.map((skill) => (
-              <div key={skill.name} className="flex flex-col items-center gap-4 rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-lg shadow-slate-200/50">
-                <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-slate-100">
-                  {skill.icon}
-                </div>
-                <p className="text-lg font-semibold text-slate-950">{skill.name}</p>
+
+          {skillCategories.map((category) => (
+            <ScrollStackItem key={category.title}>
+              <div className="max-w-7xl mx-auto px-6">
+                <article className="group overflow-hidden rounded-[32px] border border-slate-200/80 bg-white/95 p-8 shadow-[0_24px_64px_rgba(15,23,42,0.08)]">
+                  <div className="mb-6">
+                    <p className="text-sm uppercase tracking-[0.35em] text-cyan-500">{category.title}</p>
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">{category.title}</h3>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-2">
+                    {category.skills.map((skill) => (
+                      <div
+                        key={skill.name}
+                        className="flex items-center gap-3 rounded-3xl border border-slate-200/70 bg-slate-50 px-4 py-3 transition duration-300 group-hover:bg-white"
+                      >
+                        <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-slate-100 text-slate-950">
+                          {skill.icon}
+                        </div>
+                        <div>
+                          <p className="text-base font-semibold text-slate-950">{skill.name}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </article>
               </div>
-            ))}
-          </div>
-        </div>
+            </ScrollStackItem>
+          ))}
+        </ScrollStack>
       </section>
 
     </main>
