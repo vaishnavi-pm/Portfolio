@@ -164,7 +164,7 @@ const Service = () => {
                 <h1 className="text-8xl font-bold tracking-tight text-slate-950">Web Works</h1>
                 <p className="text-lg font-medium text-slate-600">Bringing bold ideas to life through code and creativity.</p>
               </div>
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-center gap-2">
                 
                 <div className="inline-flex items-center gap-6">
                   <a
@@ -238,48 +238,75 @@ const Service = () => {
         </div>
       </section>
 
-      <section id="sectionSkills" className="py-20 bg-white">
+      <section id="sectionSkills" className="py-16 bg-gradient-to-b from-white via-slate-50 to-white overflow-hidden">
         <ScrollStack
-          className="bg-white"
-          itemDistance={60}
-          itemScale={0.05}
-          itemStackDistance={20}
-          stackPosition="30%"
-          scaleEndPosition="10%"
-          baseScale={0.8}
-          rotationAmount={0}
-          blurAmount={0}
+          className="bg-transparent"
+          itemDistance={80}
+          itemScale={0.1}
+          itemStackDistance={5}
+          stackPosition="center"
+          scaleEndPosition="60%"
+          baseScale={0.98}
+          rotationAmount={8}
+          blurAmount={1}
           useWindowScroll={false}
         >
-          <div className="max-w-7xl mx-auto px-6 pt-12">
-            <div className="mb-12 text-center">
-              <h2 className="mt-3 text-4xl font-bold text-slate-950">My Core Skills</h2>
-              <p className="mx-auto mt-3 max-w-2xl text-slate-600">
-                A polished skill system built to show your strongest tools across design, development, AI, cloud, and database workflows.
+          <div className="max-w-7xl mx-auto px-6 pt-8 pb-6 w-full">
+            <div className="mb-8 text-center">
+              <h2 className="mt-3 text-5xl font-bold bg-gradient-to-r from-slate-950 via-slate-700 to-slate-950 bg-clip-text text-transparent">My Core Skills</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600 leading-relaxed">
+                Scroll through my expertise
               </p>
             </div>
           </div>
 
           {skillCategories.map((category) => (
             <ScrollStackItem key={category.title}>
-              <div className="max-w-7xl mx-auto px-6">
-                <article className="group overflow-hidden rounded-[32px] border border-slate-200/80 bg-white/95 p-8 shadow-[0_24px_64px_rgba(15,23,42,0.08)]">
-                  <div className="mb-6">
-                    <p className="text-sm uppercase tracking-[0.35em] text-cyan-500">{category.title}</p>
-                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">{category.title}</h3>
+              <div className="flex items-center justify-center min-h-screen w-full px-6">
+                <article className="group relative overflow-hidden rounded-[40px] border border-slate-200/60 bg-gradient-to-br from-white via-slate-50 to-white p-10 shadow-[0_24px_80px_rgba(15,23,42,0.12)] transition-all duration-700 hover:shadow-[0_24px_120px_rgba(15,23,42,0.2)] hover:border-slate-300/80 w-full max-w-5xl">
+                  
+                  {/* Animated Background Gradient */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-gradient-to-br from-cyan-500/10 via-transparent to-blue-500/10 transition-opacity duration-500" />
+                  
+                  {/* Header Section */}
+                  <div className="relative mb-6 flex items-center justify-between">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.4em] font-bold text-cyan-600 drop-shadow-sm">{category.title}</p>
+                      <h3 className="mt-2 text-4xl font-bold bg-gradient-to-r from-slate-950 to-slate-700 bg-clip-text text-transparent">{category.title}</h3>
+                    </div>
+                    <div className="hidden lg:flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 group-hover:from-cyan-500/40 group-hover:to-blue-500/40 transition-all duration-500">
+                      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+                    </div>
                   </div>
-                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-2">
-                    {category.skills.map((skill) => (
+                  
+                  {/* Skills Grid */}
+                  <div className="relative grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                    {category.skills.map((skill, idx) => (
                       <div
                         key={skill.name}
-                        className="flex items-center gap-3 rounded-3xl border border-slate-200/70 bg-slate-50 px-4 py-3 transition duration-300 group-hover:bg-white"
+                        className="group/card relative overflow-hidden rounded-[24px] border border-slate-200/70 bg-gradient-to-br from-slate-50 to-white px-3 py-4 transition-all duration-300 hover:border-slate-300 hover:shadow-[0_12px_40px_rgba(15,23,42,0.1)] hover:scale-105 cursor-pointer"
+                        style={{
+                          transitionDelay: `${idx * 50}ms`,
+                        }}
                       >
-                        <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-slate-100 text-slate-950">
+                        {/* Card Background Shimmer */}
+                        <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 transition-opacity duration-500" />
+                        
+                        {/* Icon Container */}
+                        <div className="relative flex h-14 w-14 items-center justify-center rounded-[18px] bg-gradient-to-br from-slate-100 to-slate-200 text-slate-950 shadow-md group-hover/card:shadow-lg group-hover/card:scale-110 transition-all duration-300">
                           {skill.icon}
+                          <div className="absolute inset-0 rounded-[18px] opacity-0 group-hover/card:opacity-20 bg-gradient-to-br from-white to-slate-100 transition-opacity duration-300" />
                         </div>
-                        <div>
-                          <p className="text-base font-semibold text-slate-950">{skill.name}</p>
+                        
+                        {/* Text Content */}
+                        <div className="relative mt-3">
+                          <p className="text-base font-bold text-slate-950 group-hover/card:text-transparent group-hover/card:bg-clip-text group-hover/card:bg-gradient-to-r from-slate-950 to-slate-700 transition-all duration-300">
+                            {skill.name}
+                          </p>
                         </div>
+                        
+                        {/* Bottom Accent Line */}
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500/0 via-cyan-500/50 to-cyan-500/0 scale-x-0 group-hover/card:scale-x-100 transition-transform duration-500 origin-center" />
                       </div>
                     ))}
                   </div>
