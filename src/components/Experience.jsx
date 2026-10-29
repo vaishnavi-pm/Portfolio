@@ -63,7 +63,7 @@ const Experience = () => {
             <div className="absolute left-1/2 top-0 h-full w-1 -translate-x-1/2 bg-gradient-to-b from-sky-400 to-purple-500" />
 
             <div className="relative space-y-12">
-              {experiences.map((item, index) => (
+              {experiences.map((item) => (
                 <div key={item.company} className="relative">
                   {/* Timeline Dot */}
                   <div className="absolute left-1/2 top-8 h-4 w-4 -translate-x-1/2 rounded-full bg-sky-400 ring-4 ring-[#05060f]" />
@@ -116,7 +116,7 @@ const Experience = () => {
           {/* Premium Timeline for Tools */}
           <div className="relative">
             <div className="relative flex justify-center gap-16 flex-wrap max-w-2xl mx-auto">
-              {clubActivities.map((activity, index) => (
+              {clubActivities.map((activity) => (
                 <div key={activity.id} className="relative group">
                   {/* Compact Premium Card */}
                   <div className="relative flex flex-col items-center">

@@ -1,6 +1,5 @@
 ﻿import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
-import { useTheme } from "../context/useTheme";
 
 function ShimmerButton({ children, href, onClick, colors, ...props }) {
   const Tag = href ? motion.a : motion.button;
@@ -26,8 +25,6 @@ function ShimmerButton({ children, href, onClick, colors, ...props }) {
 }
 
 export default function Hero() {
-  const { colors } = useTheme();
-
   return (
     <section className="hero relative isolate min-h-screen overflow-hidden bg-transparent text-white">
 

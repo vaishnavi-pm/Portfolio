@@ -38,7 +38,7 @@
  *       onClick={() => handleProjectClick('Project Name', 'project-id')}
  *       // ...rest of your props
  *     >
- *       {/* Project content */}
+ *       <span>Project content</span>
  *     </div>
  *   );
  * };
@@ -76,7 +76,7 @@
  * 
  *   return (
  *     <form onSubmit={handleSubmit}>
- *       {/* Your existing form fields */}
+ *       Your existing form fields
  *     </form>
  *   );
  * };
@@ -210,7 +210,7 @@
  *       <About />
  *       <Skills />
  *       
- *       {/* Add the statistics component here */}
+ *       <PortfolioStats />
  *       <PortfolioStats 
  *         title="Portfolio Statistics"
  *         subtitle="Here's what I've accomplished"

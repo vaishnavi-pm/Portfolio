@@ -1,5 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { useMemo } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -14,18 +13,6 @@ import { Routes, Route } from "react-router-dom";
 
 const App = () => {
   const { isDark, colors } = useTheme();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 2,
-        y: (e.clientY / window.innerHeight - 0.5) * 2,
-      });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   const PortfolioLayout = useMemo(() => (
     <div 
@@ -67,7 +54,7 @@ const App = () => {
 
       <Footer />
     </div>
-  ), [mousePosition, isDark, colors]);
+  ), [isDark, colors]);
 
   return (
     <Routes>

@@ -24,9 +24,6 @@ export const AnalyticsProvider = ({ children }) => {
       // Initialize Microsoft Clarity
       await initializeClarity();
 
-      // Track initial page view
-      trackPageView(location.pathname, document.title);
-
       console.log('📊 Analytics providers initialized');
     };
 

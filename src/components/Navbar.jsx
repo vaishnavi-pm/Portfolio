@@ -36,7 +36,7 @@ function ShimmerButton({ children, href, onClick, colors, ...props }) {
 }
 
 /* ─── Resume Link ───────────────────────────────────────────────────────── */
-function ResumeLink({ href, jost, onMouseEnter, onMouseLeave, colors }) {
+function ResumeLink({ href, jost, onMouseEnter, onMouseLeave }) {
   return (
     <motion.a
       href={href}
@@ -67,7 +67,6 @@ export default function Navbar() {
     return () => window.removeEventListener('mousemove', onMove);
   }, []);
 
-  const cormorant = { fontFamily: "'Cormorant Garamond', serif" };
   const jost      = { fontFamily: "'Jost', sans-serif" };
 
   return (

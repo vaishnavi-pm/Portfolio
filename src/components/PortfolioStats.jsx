@@ -10,7 +10,7 @@
  * Uses Framer Motion for smooth animations
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/useTheme';
 
@@ -206,6 +206,9 @@ const PortfolioStats = ({
 
   // Intersection Observer to trigger animation when section comes into view
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return undefined;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -216,14 +219,10 @@ const PortfolioStats = ({
       { threshold: 0.3 }
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
+    observer.observe(container);
 
     return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
-      }
+      observer.unobserve(container);
     };
   }, []);
 
